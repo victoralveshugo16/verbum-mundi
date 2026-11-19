@@ -1,0 +1,1165 @@
+---
+// VERBUM MUNDI — Edição Digital Oficial
+---
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>VERBUM MUNDI — Pensamento, teologia, fé e cultura.</title>
+  <meta name="description" content="Revista digital independente dedicada à reflexão intelectual, formação teológica e diálogo com a cultura." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@200;300;400;500;700;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <style is:global>
+    :root {
+      --bk: #0A0A0A;
+      --gr: #1C1C1C;
+      --or: #C65D32;
+      --sv: #A6A6A6;
+      --iv: #F2EFE9;
+      --sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+      --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { background: var(--bk); scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--serif);
+      font-size: 18px;
+      line-height: 1.65;
+      transition: background-color 0.35s ease, color 0.35s ease;
+    }
+    body[data-theme="noir"] {
+      --bg: var(--bk);
+      --fg: var(--iv);
+      --mu: var(--sv);
+      --ln: #262626;
+      --card: var(--gr);
+    }
+    body[data-theme="paper"] {
+      --bg: var(--iv);
+      --fg: #161614;
+      --mu: #5E5B53;
+      --ln: #D5D0C5;
+      --card: #E7E3DA;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
+    .w { max-width: 1220px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); }
+    .cat {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--or);
+    }
+    .meta {
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      color: var(--mu);
+    }
+    .rule { width: 56px; height: 2px; background: var(--or); border: 0; margin: 0 0 22px; }
+
+    /* Barra de Progresso de Leitura */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--or);
+      z-index: 100;
+      transition: width 0.1s linear;
+    }
+
+    /* Cabeçalho */
+    header.top {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(10, 10, 10, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #242424;
+      color: var(--iv);
+    }
+    header.top .w {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+      gap: 20px;
+    }
+    nav.main {
+      display: flex;
+      gap: 24px;
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    nav.main button {
+      background: none;
+      border: 0;
+      border-bottom: 1px solid transparent;
+      color: var(--sv);
+      padding: 6px 0;
+      cursor: pointer;
+      letter-spacing: inherit;
+      text-transform: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    nav.main button:hover, nav.main button.active {
+      color: var(--iv);
+      border-bottom-color: var(--or);
+    }
+    .tools { display: flex; gap: 14px; align-items: center; }
+    .btn-ghost {
+      background: none;
+      border: 1px solid #333;
+      color: var(--iv);
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 7px 14px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--or); color: var(--or); }
+    #menu-btn { display: none; }
+
+    @media (max-width: 960px) {
+      #menu-btn { display: inline-block; }
+      nav.main {
+        display: none;
+        position: absolute;
+        top: 76px;
+        left: 0;
+        right: 0;
+        background: var(--bk);
+        flex-direction: column;
+        gap: 0;
+        padding: 12px clamp(20px, 4vw, 48px) 24px;
+        border-bottom: 1px solid #262626;
+      }
+      nav.main.open { display: flex; }
+      nav.main button {
+        text-align: left;
+        padding: 14px 0;
+        border-bottom: 1px solid #1E1E1E;
+        font-size: 0.88rem;
+      }
+    }
+
+    /* Capa Assimétrica (Texto à esquerda, Arte Cinematográfica à direita) */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: clamp(32px, 5vw, 72px);
+      padding: clamp(44px, 7vh, 84px) 0;
+      border-bottom: 1px solid var(--ln);
+      align-items: center;
+    }
+    .hero h1 {
+      font-weight: 400;
+      font-size: clamp(2.3rem, 4.6vw, 4.1rem);
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      margin: 14px 0 20px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .hero h1:hover { color: var(--or); }
+    .hero p.lead {
+      font-size: 1.22rem;
+      color: var(--mu);
+      line-height: 1.55;
+      margin: 0 0 24px;
+      max-width: 34em;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--or);
+      color: #0A0A0A;
+      border: 0;
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 14px 26px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.9; }
+
+    .hero-art {
+      position: relative;
+      background: var(--gr);
+      border: 1px solid #2A2A2A;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .hero-art img {
+      display: block;
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      filter: contrast(1.08) brightness(0.86);
+      transition: transform 0.7s ease;
+    }
+    .hero-art:hover img { transform: scale(1.025); }
+    .hero-art::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.15) 55%, transparent 100%);
+      pointer-events: none;
+    }
+    .hero-caption {
+      position: absolute;
+      bottom: 20px;
+      left: 22px;
+      right: 22px;
+      z-index: 2;
+      border-left: 2px solid var(--or);
+      padding-left: 14px;
+    }
+    .hero-caption span {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--or);
+      margin-bottom: 4px;
+    }
+    .hero-caption p {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--iv);
+      font-style: italic;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-art img { height: 340px; }
+    }
+
+    /* Manifesto Strip */
+    .manifesto-box {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 32px;
+      padding: 48px 0;
+      border-bottom: 1px solid var(--ln);
+      align-items: start;
+    }
+    .manifesto-box blockquote {
+      margin: 0;
+      font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+      line-height: 1.45;
+      color: var(--iv);
+    }
+    @media (max-width: 760px) {
+      .manifesto-box { grid-template-columns: 1fr; gap: 14px; }
+    }
+
+    /* Seções Editoriais */
+    .sec { padding: clamp(44px, 7vh, 76px) 0; border-bottom: 1px solid var(--ln); }
+    .sec-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 28px;
+    }
+    .sec-head h2 {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mu);
+      margin: 0;
+    }
+
+    /* Linhas Editoriais */
+    .row {
+      display: grid;
+      grid-template-columns: 160px 1fr 180px;
+      gap: 24px;
+      padding: 24px 0;
+      border-top: 1px solid var(--ln);
+      align-items: baseline;
+      cursor: pointer;
+    }
+    .row:hover h3 { color: var(--or); }
+    .row h3 {
+      font-weight: 400;
+      font-size: 1.65rem;
+      line-height: 1.2;
+      margin: 0 0 6px;
+      transition: color 0.2s;
+    }
+    .row p { margin: 0; color: var(--mu); font-size: 1.02rem; }
+    .row .right-meta { text-align: right; }
+    @media (max-width: 780px) {
+      .row { grid-template-columns: 1fr; gap: 8px; }
+      .row .right-meta { text-align: left; }
+    }
+
+    /* Seleção Editorial 3 Colunas */
+    .cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(24px, 3.5vw, 44px);
+    }
+    @media (max-width: 860px) { .cols { grid-template-columns: 1fr; } }
+    .card-ed {
+      border-top: 2px solid var(--or);
+      padding-top: 18px;
+      cursor: pointer;
+    }
+    .card-ed img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      margin-bottom: 16px;
+      filter: contrast(1.06) brightness(0.9);
+    }
+    .card-ed h3 {
+      font-weight: 400;
+      font-size: 1.42rem;
+      line-height: 1.25;
+      margin: 8px 0 10px;
+      transition: color 0.2s;
+    }
+    .card-ed:hover h3 { color: var(--or); }
+    .card-ed p { margin: 0 0 12px; color: var(--mu); font-size: 0.98rem; }
+
+    /* Índice de Categorias */
+    .cat-list button {
+      width: 100%;
+      background: none;
+      border: 0;
+      border-top: 1px solid var(--ln);
+      color: var(--fg);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 20px 0;
+      font-family: var(--serif);
+      font-size: clamp(1.55rem, 3.4vw, 2.4rem);
+      cursor: pointer;
+      text-align: left;
+      transition: padding-left 0.25s, color 0.2s;
+    }
+    .cat-list button:hover { padding-left: 14px; color: var(--or); }
+    .cat-list small {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      color: var(--mu);
+      max-width: 26em;
+      text-align: right;
+    }
+    @media (max-width: 680px) { .cat-list small { display: none; } }
+
+    /* Experiência de Leitura (Papel Marfim #F2EFE9) */
+    .article-view {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: clamp(44px, 7vh, 84px) 20px 64px;
+    }
+    .back-btn {
+      background: none;
+      border: 0;
+      color: var(--or);
+      font-family: var(--sans);
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0;
+      margin-bottom: 28px;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .article-view h1 {
+      font-weight: 500;
+      font-size: clamp(2.1rem, 5vw, 3.35rem);
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      margin: 12px 0 16px;
+    }
+    .article-view .subtitle {
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--mu);
+      line-height: 1.45;
+      margin: 0 0 24px;
+    }
+    .byline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      padding: 14px 0;
+      border-top: 1px solid var(--ln);
+      border-bottom: 1px solid var(--ln);
+      margin-bottom: 34px;
+    }
+    .article-cover {
+      margin: 0 0 38px;
+    }
+    .article-cover img {
+      width: 100%;
+      height: 360px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 3px solid var(--or);
+    }
+    .article-cover figcaption { margin-top: 8px; }
+
+    .article-body {
+      font-size: 1.2rem;
+      line-height: 1.78;
+      hyphens: auto;
+    }
+    .article-body p { margin: 0 0 1.2em; }
+    .article-body > p:first-of-type::first-letter {
+      float: left;
+      font-size: 4.1em;
+      line-height: 0.8;
+      padding: 0.06em 0.12em 0 0;
+      font-weight: 500;
+      color: var(--or);
+    }
+    .article-body h2 {
+      font-size: 1.6rem;
+      font-weight: 500;
+      line-height: 1.25;
+      margin: 2.1em 0 0.65em;
+    }
+    .article-body blockquote.pull {
+      margin: 2.2em 0;
+      padding: 4px 0 4px 1.4em;
+      border-left: 2px solid var(--or);
+      font-size: 1.42rem;
+      font-style: italic;
+      line-height: 1.45;
+    }
+    .article-body sup a {
+      color: var(--or);
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 0.72rem;
+      padding: 0 2px;
+    }
+
+    .footnotes, .references {
+      margin-top: 2.6em;
+      padding-top: 1.2em;
+      border-top: 1px solid var(--ln);
+      font-size: 0.94rem;
+      line-height: 1.6;
+      color: var(--mu);
+    }
+    .footnotes h3, .references h3 {
+      font-family: var(--sans);
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg);
+      margin: 0 0 12px;
+    }
+    .references p {
+      padding-left: 1.6em;
+      text-indent: -1.6em;
+      margin: 0 0 0.7em;
+    }
+    .share-bar {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--ln);
+    }
+    .share-btn {
+      background: none;
+      border: 0;
+      border-bottom: 1px solid var(--or);
+      color: var(--or);
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 2px 0;
+      cursor: pointer;
+    }
+
+    /* Modal de Busca */
+    .search-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.96);
+      z-index: 90;
+      display: none;
+      padding: 64px 20px;
+      overflow-y: auto;
+    }
+    .search-modal.open { display: block; }
+    .search-inner { max-width: 760px; margin: 0 auto; color: var(--iv); }
+    .search-input {
+      width: 100%;
+      background: none;
+      border: 0;
+      border-bottom: 1px solid var(--or);
+      color: var(--iv);
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      padding: 14px 0;
+      outline: none;
+      margin-bottom: 28px;
+    }
+
+    /* Formulário */
+    .form-box { display: grid; gap: 16px; max-width: 560px; margin-top: 24px; }
+    .form-box input, .form-box textarea {
+      background: none;
+      border: 0;
+      border-bottom: 1px solid var(--mu);
+      color: var(--fg);
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      padding: 10px 0;
+      width: 100%;
+    }
+
+    /* Rodapé */
+    footer.bottom {
+      background: var(--bk);
+      color: var(--iv);
+      border-top: 1px solid #242424;
+      padding: 60px 0 36px;
+      font-family: var(--sans);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 40px;
+    }
+    @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr; } }
+    footer h4 {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--iv);
+      margin: 0 0 14px;
+    }
+    footer ul { list-style: none; padding: 0; margin: 0; }
+    footer li { margin-bottom: 8px; }
+    footer li button, footer li a {
+      background: none;
+      border: 0;
+      padding: 0;
+      color: var(--sv);
+      font-size: 0.86rem;
+      cursor: pointer;
+    }
+    footer li button:hover, footer li a:hover { color: var(--or); }
+    .nl-form { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    .nl-form input {
+      flex: 1;
+      min-width: 200px;
+      background: none;
+      border: 0;
+      border-bottom: 1px solid #555;
+      color: var(--iv);
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      padding: 8px 0;
+    }
+    .copyright {
+      border-top: 1px solid #222;
+      margin-top: 40px;
+      padding-top: 20px;
+      font-size: 0.76rem;
+      color: var(--sv);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body data-theme="noir">
+  <div id="progress-bar"></div>
+
+  <header class="top">
+    <div class="w">
+      <a href="#" id="brand-home" aria-label="VERBUM MUNDI — Capa">
+        <!-- Logotipo Oficial Variação 02 — Cinematográfico -->
+        <svg width="248" height="48" viewBox="0 0 360 70" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VERBUM MUNDI">
+          <path d="M 214 15 A 56 34 0 0 1 322 15" stroke="#C65D32" stroke-width="2.4" fill="none"/>
+          <text x="0" y="42" fill="#F2EFE9" font-family="Archivo, Helvetica Neue, Arial, sans-serif" font-size="27">
+            <tspan font-weight="900" letter-spacing="1.2">VERBUM</tspan>
+            <tspan font-weight="200" letter-spacing="8.5"> MUNDI</tspan>
+          </text>
+          <text x="1" y="61" fill="#A6A6A6" font-family="Archivo, Helvetica Neue, Arial, sans-serif" font-weight="400" font-size="8.6" letter-spacing="3.4">
+            PENSAMENTO, TEOLOGIA, FÉ E CULTURA.
+          </text>
+        </svg>
+      </a>
+
+      <nav class="main" id="nav-menu" aria-label="Navegação editorial">
+        <button data-route="home" class="active">Capa</button>
+        <button data-route="ensaios">Ensaios</button>
+        <button data-route="teologia">Teologia</button>
+        <button data-route="filosofia">Filosofia</button>
+        <button data-route="cultura">Cultura</button>
+        <button data-route="academico">Acadêmico</button>
+        <button data-route="sobre">Sobre</button>
+        <button data-route="contato">Contato</button>
+      </nav>
+
+      <div class="tools">
+        <button class="btn-ghost" id="open-search">Buscar</button>
+        <button class="btn-ghost" id="menu-btn">Menu</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="app"></main>
+
+  <!-- Modal de Busca -->
+  <div class="search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="Buscar na revista">
+    <div class="search-inner">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+        <span class="cat">Pesquisa no Acervo</span>
+        <button class="btn-ghost" id="close-search">Fechar [ESC]</button>
+      </div>
+      <input type="search" id="search-input" class="search-input" placeholder="Digite tema, autor ou palavra-chave..." />
+      <div id="search-results"></div>
+    </div>
+  </div>
+
+  <footer class="bottom">
+    <div class="w">
+      <div class="footer-grid">
+        <div>
+          <svg width="248" height="48" viewBox="0 0 360 70" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VERBUM MUNDI">
+            <path d="M 214 15 A 56 34 0 0 1 322 15" stroke="#C65D32" stroke-width="2.4" fill="none"/>
+            <text x="0" y="42" fill="#F2EFE9" font-family="Archivo, Helvetica Neue, Arial, sans-serif" font-size="27">
+              <tspan font-weight="900" letter-spacing="1.2">VERBUM</tspan>
+              <tspan font-weight="200" letter-spacing="8.5"> MUNDI</tspan>
+            </text>
+            <text x="1" y="61" fill="#A6A6A6" font-family="Archivo, Helvetica Neue, Arial, sans-serif" font-weight="400" font-size="8.6" letter-spacing="3.4">
+              PENSAMENTO, TEOLOGIA, FÉ E CULTURA.
+            </text>
+          </svg>
+          <p style="color:var(--sv);font-size:0.9rem;max-width:34ch;margin:14px 0 0;">
+            Publicação editorial independente dedicada à reflexão intelectual, formação teológica e diálogo com a cultura.
+          </p>
+          <form class="nl-form" id="nl-form">
+            <input type="email" required placeholder="Seu melhor e-mail" aria-label="E-mail para newsletter" />
+            <button type="submit" class="btn-primary">Assinar</button>
+          </form>
+          <p id="nl-feedback" class="meta" style="color:var(--or);margin-top:8px;"></p>
+        </div>
+
+        <div>
+          <h4>Editorias</h4>
+          <ul>
+            <li><button data-route="ensaios">Ensaios</button></li>
+            <li><button data-route="teologia">Teologia</button></li>
+            <li><button data-route="filosofia">Filosofia</button></li>
+            <li><button data-route="cultura">Cultura</button></li>
+            <li><button data-route="academico">Acadêmico</button></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Institucional</h4>
+          <ul>
+            <li><button data-route="sobre">Manifesto & Sobre</button></li>
+            <li><button data-route="contato">Fale com a Redação</button></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <span>© 2026 VERBUM MUNDI. Todos os direitos reservados.</span>
+        <span>Pensamento, teologia, fé e cultura.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const ARTICLES = [
+      {
+        id: 'entre-a-liberdade-e-o-peso-do-irreversivel',
+        title: 'Entre a Liberdade e o Peso do Irreversível',
+        subtitle: 'A Parábola do Grande Inquisidor, a culpa moral e a redenção da história em Dostoievski',
+        category: 'Ensaios',
+        categorySlug: 'ensaios',
+        author: 'Victor Hugo Pereira Alves',
+        date: '17 de novembro de 2026',
+        readingTime: 12,
+        featured: true,
+        editorsPick: true,
+        image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1400&q=85',
+        caption: 'Acervo clássico — fotografia editorial',
+        excerpt: 'Diante do Grande Inquisidor, surge uma pergunta que não se cala: o homem realmente deseja ser livre ou teme a liberdade mais do que qualquer outra coisa?',
+        paragraphs: [
+          'Em uma das passagens mais inquietantes da literatura ocidental, na obra <em>Os Irmãos Karamázov</em>, de Fiódor Dostoievski, somos conduzidos a um cenário paradoxal: Cristo retorna à terra, mas não é recebido com adoração — é preso. A chamada "Parábola do Grande Inquisidor" não é apenas uma construção teológica ou filosófica; é um espelho perturbador da alma humana. E, diante dela, surge uma pergunta que não se cala: o homem realmente deseja ser livre ou teme a liberdade mais do que qualquer outra coisa?',
+          'A narrativa se desenrola nos tempos da Inquisição espanhola. Cristo reaparece em silêncio. Não discursa, não impõe, não se defende. Apenas cura, ama e se deixa reconhecer. Sua presença, por si só, é suficiente. Ainda assim, é capturado. Diante dele ergue-se o Grande Inquisidor — não apenas um homem, mas a personificação de um sistema que prefere a ordem à verdade, o controle à liberdade.',
+          'Durante a noite, na quietude da cela, o Inquisidor o visita. E fala longamente. Não espera resposta, porque não deseja diálogo — deseja justificar-se. Sua acusação é direta: Cristo errou ao conceder liberdade aos homens. Segundo ele, a humanidade não quer ser livre; quer pão, segurança e direção. A liberdade, afirma, é um peso insuportável para consciências frágeis, inclinadas ao medo e à culpa.',
+          'E, desconfortavelmente, há verdade nisso. A liberdade não é apenas uma dádiva; é também uma exposição. Ser livre é ser responsável — não apenas pelo que ainda virá, mas pelo que já foi. É nesse ponto que ecoa a máxima latina <em>factum fieri infectum non potest</em>: o que foi feito não pode ser desfeito.<sup><a href="#fn-1" id="ref-1">[1]</a></sup>',
+          'Não há fuga possível dessa realidade. O passado não se dissolve com o tempo. O erro não desaparece por negação. O pecado não é um ruído psicológico que se dissipa, mas uma realidade moral que deixa marcas. O homem carrega consigo a memória de suas escolhas e, com ela, o peso silencioso de suas falhas.',
+          'Talvez por isso a liberdade assuste. O Inquisidor percebe esse terror. Ele entende que ser livre é encarar quem se foi e tudo aquilo que se fez. No entanto, sua resposta a esse dilema é uma rendição: retirar do homem a liberdade para poupá-lo de si mesmo. Substituir responsabilidade por submissão. Trocar a verdade pela estabilidade. Para ele, é melhor um homem seguro do que um homem livre.',
+          'Contudo, é exatamente nesse ponto que sua visão se desfaz. O problema não está na liberdade, mas no homem que a exerce. Conforme a teologia reformada sistematizada por Louis Berkhof, a condição humana é marcada por uma corrupção moral que afeta sua capacidade de responder adequadamente à liberdade. A culpa não é apenas subjetiva, mas possui caráter real e exige resolução.<sup><a href="#fn-2" id="ref-2">[2]</a></sup>',
+          'Na fé cristã, o passado não é apagado — é enfrentado. Não é esquecido — é julgado. E, de forma paradoxal, é redimido. A cruz não funciona como um mecanismo de esquecimento, mas como o lugar onde a justiça é satisfeita. O fato consumado permanece, mas sua consequência condenatória é removida.',
+          'Assim, a máxima latina permanece verdadeira, mas ressignificada: o que foi feito não pode ser desfeito, mas pode ser redimido. A liberdade deixa de ser um peso insuportável e se torna habitável — não porque o homem tenha se tornado inocente, mas porque foi reconciliado com Deus. Diferentemente da proposta do Inquisidor, que alivia o homem ao custo de sua humanidade, o evangelho preserva a verdade e a dignidade humana. Não há negação da culpa, mas redenção dela.',
+          'A parábola, portanto, nos conduz a uma tensão inevitável: entre o desejo de segurança e o chamado à liberdade. Entre o conforto de ser conduzido e o peso de responder por si mesmo. Contudo, a resposta não está na fuga, mas na reconciliação.',
+          'A verdadeira liberdade não consiste em apagar o passado nem em negar a responsabilidade. Ela nasce quando o homem já não precisa se esconder. O passado permanece, a culpa é reconhecida, mas já não governa. E talvez seja esse o ponto que o Inquisidor jamais compreendeu: o homem não precisa de menos liberdade — precisa de redenção para suportá-la.'
+        ],
+        pullQuote: 'O homem não precisa de menos liberdade — precisa de redenção para suportá-la.',
+        footnotes: [
+          'Princípio clássico do Direito Romano consolidado no Corpus Juris Civilis de Justiniano I (século VI), segundo o qual o fato consumado possui irreversibilidade ontológica e histórica.',
+          'BERKHOF, Louis. Teologia Sistemática. São Paulo: Cultura Cristã, 2012.'
+        ],
+        references: [
+          'DOSTOIÉVSKI, Fiódor. Os Irmãos Karamazov. Trad. Paulo Bezerra. São Paulo: Editora 34, 2008. Livro V, cap. 5.',
+          'JUSTINIANO I. Corpus Juris Civilis. Traduções diversas. Compilação do Direito Romano, século VI.',
+          'BERKHOF, Louis. Teologia Sistemática. São Paulo: Cultura Cristã, 2012.'
+        ]
+      },
+      {
+        id: 'o-que-a-reforma-nao-quis-perder',
+        title: 'O que a Reforma não quis perder',
+        subtitle: 'Continuidade e ruptura na recepção da tradição patrística no século XVI',
+        category: 'Teologia',
+        categorySlug: 'teologia',
+        author: 'Helena Marques',
+        date: '12 de novembro de 2026',
+        readingTime: 14,
+        featured: false,
+        editorsPick: true,
+        image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1000&q=80',
+        caption: 'Manuscritos e tradição textual',
+        excerpt: 'A Reforma do século XVI costuma ser lida como ruptura. Uma leitura atenta revela um movimento que quis, antes de tudo, preservar.',
+        paragraphs: [
+          'A Reforma do século XVI costuma ser lida como ruptura absoluta. Uma leitura mais atenta das fontes primárias mostra, contudo, um movimento que quis antes de tudo preservar a catolicidade apostólica da Igreja.',
+          'Os textos de Calvino, Bucer e Melanchthon revelam leitores assíduos de Agostinho, Crisóstomo e Atanásio — citando, discutindo e corrigindo sem jamais fingir que começam a teologia do zero.',
+          'Reformar, no vocabulário clássico da época, significava devolver à forma original. A palavra carrega uma lealdade histórica que o modernismo religioso costuma esquecer.'
+        ],
+        pullQuote: 'Quem rompe com o passado sem conhecê-lo apenas repete os erros que a tradição já corrigiu.',
+        footnotes: [],
+        references: [
+          'CALVINO, João. As Institutas da Religião Cristã. São Paulo: Cultura Cristã, 2006.'
+        ]
+      },
+      {
+        id: 'a-pergunta-pelo-humano',
+        title: 'A pergunta pelo humano depois das máquinas',
+        subtitle: 'Antropologia filosófica, consciência e finitude na era algorítmica',
+        category: 'Filosofia',
+        categorySlug: 'filosofia',
+        author: 'Davi Antunes',
+        date: '09 de novembro de 2026',
+        readingTime: 11,
+        featured: false,
+        editorsPick: true,
+        image: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=1000&q=80',
+        caption: 'Arquitetura e silêncio contemplativo',
+        excerpt: 'Quando a técnica promete resolver o homem, a filosofia é chamada a perguntar novamente quem ele é.',
+        paragraphs: [
+          'Toda revolução técnica traz consigo uma antropologia implícita. Ao delegarmos à máquina não apenas o cálculo, mas a simulação da linguagem, reabrimos a questão kantiana fundamental: o que é o homem?',
+          'A diferença entre processar símbolos e habitar um sentido reside precisamente na experiência da finitude, da responsabilidade moral e do assombro diante do ser.'
+        ],
+        pullQuote: 'O cálculo responde a problemas; apenas uma consciência finita habita o mistério.',
+        footnotes: [],
+        references: [
+          'AGOSTINHO, Santo. Confissões. São Paulo: Penguin-Companhia, 2017.'
+        ]
+      },
+      {
+        id: 'cinema-e-transcendencia',
+        title: 'Cinema e transcendência',
+        subtitle: 'Luz, tempo e a imagem cinematográfica que pede contemplação',
+        category: 'Cultura',
+        categorySlug: 'cultura',
+        author: 'Lucas Brandão',
+        date: '30 de outubro de 2026',
+        readingTime: 9,
+        featured: false,
+        editorsPick: false,
+        image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1000&q=80',
+        caption: 'Luz e sombra no cinema autoral',
+        excerpt: 'De Tarkovski a Bresson, o cinema lento ensina a olhar para além da superfície imediata da imagem.',
+        paragraphs: [
+          'Vivemos cercados por imagens que exigem reação imediata e esquecimento rápido. Em contrapartida, a tradição do cinema transcendental propõe uma pedagogia do olhar.',
+          'Quando a câmera permanece sobre um rosto ou uma paisagem além do tempo utilitário, o espectador é convidado a atravessar a aparência rumo à interioridade.'
+        ],
+        pullQuote: 'O cinema autoral não ilustra ideias: ele esculpe o tempo para tornar visível o invisível.',
+        footnotes: [],
+        references: [
+          'TARKOVSKI, Andrei. Esculpir o Tempo. São Paulo: Martins Fontes, 2010.'
+        ]
+      },
+      {
+        id: 'fontes-e-metodo-historia-da-igreja',
+        title: 'Fontes e método em História da Igreja',
+        subtitle: 'Notas metodológicas para pesquisadores em teologia histórica',
+        category: 'Acadêmico',
+        categorySlug: 'academico',
+        author: 'Beatriz Lemos',
+        date: '22 de outubro de 2026',
+        readingTime: 16,
+        featured: false,
+        editorsPick: false,
+        image: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1000&q=80',
+        caption: 'Pesquisa documental e fontes primárias',
+        excerpt: 'Um roteiro rigoroso de trabalho com fontes patrísticas, conciliares e confessionais.',
+        paragraphs: [
+          'A pesquisa histórica séria exige distinguir entre o uso apologético apressado de citações isoladas e a leitura contextualizada das fontes primárias em seu horizonte linguístico e institucional.',
+          'Antes de interrogar um texto antigo com nossas categorias contemporâneas, o pesquisador precisa ouvir as perguntas que o próprio autor buscava responder em seu tempo.'
+        ],
+        pullQuote: 'A honestidade intelectual começa pela recusa ao anacronismo.',
+        footnotes: [],
+        references: [
+          'PELIKAN, Jaroslav. A Tradição Cristã. São Paulo: Shedd Publicações, 2014.'
+        ]
+      }
+    ];
+
+    const CATEGORIES = [
+      { slug: 'ensaios', title: 'Ensaios', desc: 'Textos longos, argumentativos, reflexivos e literários.' },
+      { slug: 'teologia', title: 'Teologia', desc: 'Teologia sistemática, bíblica, histórica, reformada e história da Igreja.' },
+      { slug: 'filosofia', title: 'Filosofia', desc: 'Filosofia clássica, contemporânea, ética, epistemologia e antropologia.' },
+      { slug: 'cultura', title: 'Cultura', desc: 'Literatura, cinema, história, sociedade, artes e cultura contemporânea.' },
+      { slug: 'academico', title: 'Acadêmico', desc: 'Artigos científicos, pesquisas, resenhas e estudos investigativos.' }
+    ];
+
+    const app = document.getElementById('app');
+    const progressBar = document.getElementById('progress-bar');
+
+    function setTheme(theme) {
+      document.body.setAttribute('data-theme', theme);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateActiveNav(route) {
+      document.querySelectorAll('nav.main button').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.route === route);
+      });
+      document.getElementById('nav-menu').classList.remove('open');
+    }
+
+    function renderHome() {
+      setTheme('noir');
+      updateActiveNav('home');
+      const hero = ARTICLES.find(a => a.featured) || ARTICLES[0];
+      const latest = ARTICLES.slice(1, 5);
+      const picks = ARTICLES.filter(a => a.editorsPick).slice(0, 3);
+
+      app.innerHTML = `
+        <div class="w">
+          <section class="hero">
+            <div>
+              <span class="cat">${hero.category} · Em Destaque</span>
+              <h1 onclick="openArticle('${hero.id}')">${hero.title}</h1>
+              <hr class="rule" />
+              <p class="lead">${hero.excerpt}</p>
+              <p class="meta" style="margin-bottom:28px;">Por ${hero.author} · ${hero.date} · ${hero.readingTime} min de leitura</p>
+              <button class="btn-primary" onclick="openArticle('${hero.id}')">Ler ensaio completo →</button>
+            </div>
+            <div class="hero-art" onclick="openArticle('${hero.id}')">
+              <img src="${hero.image}" alt="${hero.title}" />
+              <div class="hero-caption">
+                <span>Capa da Edição</span>
+                <p>"O homem não precisa de menos liberdade — precisa de redenção para suportá-la."</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="manifesto-box">
+            <div>
+              <span class="cat">Manifesto Editorial</span>
+              <p class="meta" style="margin-top:8px;">VERBUM MUNDI</p>
+            </div>
+            <blockquote>
+              "Pensar é também uma forma de habitar o mundo. Promovemos o diálogo profundo entre teologia, filosofia, literatura e cultura — onde a erudição não dispensa a clareza."
+            </blockquote>
+          </section>
+
+          <section class="sec">
+            <div class="sec-head">
+              <h2>Últimas Publicações</h2>
+              <span class="meta">${ARTICLES.length} textos publicados</span>
+            </div>
+            ${latest.map(a => `
+              <article class="row" onclick="openArticle('${a.id}')">
+                <span class="cat">${a.category}</span>
+                <div>
+                  <h3>${a.title}</h3>
+                  <p>${a.subtitle}</p>
+                </div>
+                <div class="right-meta meta">
+                  <div>${a.author}</div>
+                  <div>${a.readingTime} min de leitura</div>
+                </div>
+              </article>
+            `).join('')}
+          </section>
+
+          <section class="sec">
+            <div class="sec-head">
+              <h2>Seleção Editorial</h2>
+              <span class="meta">Curadoria da Redação</span>
+            </div>
+            <div class="cols">
+              ${picks.map(a => `
+                <article class="card-ed" onclick="openArticle('${a.id}')">
+                  <img src="${a.image}" alt="${a.title}" loading="lazy" />
+                  <span class="cat">${a.category}</span>
+                  <h3>${a.title}</h3>
+                  <p>${a.excerpt}</p>
+                  <span class="meta">${a.author} · ${a.readingTime} min</span>
+                </article>
+              `).join('')}
+            </div>
+          </section>
+
+          <section class="sec" style="border-bottom:0;">
+            <div class="sec-head">
+              <h2>Explorar por Editoria</h2>
+            </div>
+            <div class="cat-list">
+              ${CATEGORIES.map(c => `
+                <button onclick="renderCategory('${c.slug}')">
+                  <span>${c.title}</span>
+                  <small>${c.desc}</small>
+                </button>
+              `).join('')}
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    function renderCategory(slug) {
+      setTheme('noir');
+      updateActiveNav(slug);
+      const cat = CATEGORIES.find(c => c.slug === slug);
+      const list = ARTICLES.filter(a => a.categorySlug === slug);
+
+      app.innerHTML = `
+        <div class="w">
+          <section style="padding:64px 0 36px;border-bottom:1px solid var(--ln);">
+            <span class="cat">Editoria</span>
+            <h1 style="font-weight:400;font-size:clamp(2.4rem,5vw,4rem);margin:10px 0 14px;">${cat.title}</h1>
+            <p style="color:var(--mu);font-size:1.18rem;max-width:42em;margin:0;">${cat.desc}</p>
+          </section>
+          <section class="sec" style="border-bottom:0;">
+            ${list.length ? list.map(a => `
+              <article class="row" onclick="openArticle('${a.id}')">
+                <span class="cat">${a.date}</span>
+                <div>
+                  <h3>${a.title}</h3>
+                  <p>${a.subtitle}</p>
+                </div>
+                <div class="right-meta meta">
+                  <div>${a.author}</div>
+                  <div>${a.readingTime} min de leitura</div>
+                </div>
+              </article>
+            `).join('') : '<p class="meta">Novas publicações em breve nesta editoria.</p>'}
+          </section>
+        </div>
+      `;
+    }
+
+    window.openArticle = function(id) {
+      const a = ARTICLES.find(item => item.id === id);
+      if (!a) return;
+      setTheme('paper');
+      updateActiveNav(a.categorySlug);
+
+      const mid = Math.floor(a.paragraphs.length / 2);
+      const bodyHtml = a.paragraphs.map((p, idx) => {
+        const pull = (idx === mid && a.pullQuote)
+          ? `<blockquote class="pull">“${a.pullQuote}”</blockquote>`
+          : '';
+        return `<p>${p}</p>${pull}`;
+      }).join('');
+
+      const fnHtml = a.footnotes && a.footnotes.length
+        ? `<div class="footnotes">
+            <h3>Notas</h3>
+            ${a.footnotes.map((fn, i) => `<p id="fn-${i+1}">${i+1}. ${fn} <a href="#ref-${i+1}" style="color:var(--or);">↩</a></p>`).join('')}
+          </div>`
+        : '';
+
+      const refHtml = a.references && a.references.length
+        ? `<div class="references">
+            <h3>Referências Bibliográficas</h3>
+            ${a.references.map(r => `<p>${r}</p>`).join('')}
+          </div>`
+        : '';
+
+      app.innerHTML = `
+        <article class="article-view">
+          <button class="back-btn" onclick="renderHome()">← Voltar para a Capa</button>
+          <div><span class="cat">${a.category}</span></div>
+          <h1>${a.title}</h1>
+          <p class="subtitle">${a.subtitle}</p>
+          <div class="byline meta">
+            <span>Por <strong>${a.author}</strong></span>
+            <span>${a.date}</span>
+            <span>${a.readingTime} min de leitura</span>
+          </div>
+          <figure class="article-cover">
+            <img src="${a.image}" alt="${a.title}" />
+            <figcaption class="meta">${a.caption || 'VERBUM MUNDI'}</figcaption>
+          </figure>
+          <div class="article-body">
+            ${bodyHtml}
+            ${fnHtml}
+            ${refHtml}
+          </div>
+          <div class="share-bar">
+            <span class="meta">Compartilhar:</span>
+            <button class="share-btn" onclick="navigator.clipboard?.writeText(window.location.href);this.textContent='Link copiado!'">Copiar link</button>
+            <button class="share-btn" onclick="renderHome()">Ver mais textos</button>
+          </div>
+        </article>
+      `;
+    };
+
+    function renderSobre() {
+      setTheme('paper');
+      updateActiveNav('sobre');
+      app.innerHTML = `
+        <article class="article-view">
+          <span class="cat">Institucional</span>
+          <h1>Manifesto Editorial</h1>
+          <p class="subtitle">Pensamento, teologia, fé e cultura.</p>
+          <div class="article-body">
+            <p>Pensar é também uma forma de habitar o mundo. Em uma época marcada pela velocidade das informações, pela superficialidade dos debates e pela fragmentação do conhecimento, o VERBUM MUNDI nasce como um espaço dedicado à reflexão, à investigação e ao diálogo intelectual.</p>
+            <p>Acreditamos que a compreensão da realidade exige mais do que respostas imediatas. Exige leitura, contemplação, questionamento e disposição para confrontar ideias.</p>
+            <h2>Proposta Editorial</h2>
+            <p>Nossa proposta é estabelecer diálogos entre teologia, filosofia, literatura, história e cultura, reconhecendo que essas áreas, embora possuam objetos e métodos próprios, participam de uma mesma busca pela compreensão da existência humana.</p>
+            <p>O VERBUM MUNDI é um espaço para ensaios, estudos, análises, resenhas e reflexões. Um lugar onde a profundidade não precisa ser sinônimo de obscuridade, onde a erudição não dispensa a clareza e onde o pensamento encontra espaço para amadurecer.</p>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderContato() {
+      setTheme('paper');
+      updateActiveNav('contato');
+      app.innerHTML = `
+        <article class="article-view">
+          <span class="cat">Contato</span>
+          <h1>Fale com a Redação</h1>
+          <p class="subtitle">Sugestões de pauta, submissão de ensaios e diálogo com leitores.</p>
+          <form class="form-box" onsubmit="event.preventDefault();document.getElementById('contact-ok').textContent='Mensagem registrada pela redação do VERBUM MUNDI.';this.reset();">
+            <input type="text" required placeholder="Seu nome completo" />
+            <input type="email" required placeholder="Seu e-mail" />
+            <textarea rows="5" required placeholder="Sua mensagem ou proposta de texto..."></textarea>
+            <button type="submit" class="btn-primary" style="justify-self:start;">Enviar mensagem</button>
+            <p id="contact-ok" class="meta" style="color:var(--or);"></p>
+          </form>
+        </article>
+      `;
+    }
+
+    // Navegação
+    document.querySelectorAll('[data-route]').forEach(el => {
+      el.addEventListener('click', () => {
+        const r = el.dataset.route;
+        if (r === 'home') renderHome();
+        else if (r === 'sobre') renderSobre();
+        else if (r === 'contato') renderContato();
+        else renderCategory(r);
+      });
+    });
+
+    document.getElementById('brand-home').addEventListener('click', (e) => {
+      e.preventDefault();
+      renderHome();
+    });
+
+    document.getElementById('menu-btn').addEventListener('click', () => {
+      document.getElementById('nav-menu').classList.toggle('open');
+    });
+
+    // Busca
+    const modal = document.getElementById('search-modal');
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+
+    function renderSearch(q = '') {
+      const term = q.trim().toLowerCase();
+      const filtered = term
+        ? ARTICLES.filter(a =>
+            a.title.toLowerCase().includes(term) ||
+            a.subtitle.toLowerCase().includes(term) ||
+            a.author.toLowerCase().includes(term) ||
+            a.category.toLowerCase().includes(term) ||
+            a.paragraphs.join(' ').toLowerCase().includes(term)
+          )
+        : ARTICLES;
+
+      searchResults.innerHTML = filtered.length
+        ? filtered.map(a => `
+            <div class="row" style="grid-template-columns:120px 1fr;" onclick="modal.classList.remove('open');openArticle('${a.id}')">
+              <span class="cat">${a.category}</span>
+              <div>
+                <h3 style="font-size:1.35rem;">${a.title}</h3>
+                <p style="font-size:0.95rem;">${a.author} · ${a.excerpt}</p>
+              </div>
+            </div>
+          `).join('')
+        : '<p class="meta">Nenhum ensaio encontrado para este termo.</p>';
+    }
+
+    document.getElementById('open-search').addEventListener('click', () => {
+      modal.classList.add('open');
+      searchInput.value = '';
+      renderSearch('');
+      setTimeout(() => searchInput.focus(), 50);
+    });
+    document.getElementById('close-search').addEventListener('click', () => modal.classList.remove('open'));
+    searchInput.addEventListener('input', (e) => renderSearch(e.target.value));
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') modal.classList.remove('open'); });
+
+    // Newsletter
+    document.getElementById('nl-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('nl-feedback').textContent = 'Assinatura confirmada! Você receberá as próximas edições.';
+      e.target.reset();
+    });
+
+    // Barra de progresso de leitura
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+      progressBar.style.width = (isFinite(pct) ? pct : 0) + '%';
+    });
+
+    renderHome();
+  </script>
+</body>
+</html>
